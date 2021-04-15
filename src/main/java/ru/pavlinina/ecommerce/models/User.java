@@ -75,4 +75,11 @@ public class User {
         return new ArrayList<String>();
     }
 
+    public int getActive() {
+        return active;
+    }
+
+    public void setActive(int active) {
+        this.active = active;
+    }
 }
