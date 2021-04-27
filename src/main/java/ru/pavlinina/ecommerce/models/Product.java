@@ -1,11 +1,9 @@
 package ru.pavlinina.ecommerce.models;
 
-import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,13 +36,12 @@ public class Product {
     @JoinColumn(name = "category_id")
     private Category category = new Category();
 
-    @ManyToMany(mappedBy = "productList",fetch = FetchType.EAGER)
-    private List<User> userList = new ArrayList<User>();
+    @ManyToMany(mappedBy = "productList", fetch = FetchType.EAGER)
+    private List<User> userList;
 
     public Product() {
         this.productName = "";
         this.productDescription = "";
     }
-
 
 }
