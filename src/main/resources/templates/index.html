@@ -8,7 +8,6 @@
 <body>
     <h1>Index page</h1>
     <ul>
-        <!--TODO Spring security roles-->
         <li sec:authorize="isAuthenticated()">
             <a href="#" th:href="@{~/profile/index}">PROFILE</a>
         </li>
