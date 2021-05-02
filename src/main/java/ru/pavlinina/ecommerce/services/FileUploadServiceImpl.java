@@ -33,14 +33,13 @@ public class FileUploadServiceImpl implements FileUploadService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return UPLOADED_FOLDER + fileName;
+        return "/resources/" + fileName;
 
     }
 
     private String generateFileName(String file) {
         String ext = file.substring(file.lastIndexOf("."));
-        String fileName = System.currentTimeMillis() + ext;
-        return fileName;
+        return System.currentTimeMillis() + ext;
     }
 
 }

@@ -16,6 +16,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 @EnableWebSecurity
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
+
     private UserPrincipalDetailService userPrincipalDetailService;
 
     public SpringSecurityConfig(UserPrincipalDetailService userPrincipalDetailService) {
@@ -37,7 +38,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/index.html", "/signup.html", "/login.html").permitAll()
+                .antMatchers("/index.html", "/signup.html", "/login.html","/resources/**").permitAll()
                 .antMatchers("/profile/**").authenticated()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/manager/**").hasAnyRole("MANAGER", "ADMIN")
