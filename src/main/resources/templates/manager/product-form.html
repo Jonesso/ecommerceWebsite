@@ -7,32 +7,40 @@
 </head>
 <body>
 
-<h1>Product Page</h1>
+  <h1>Product Page</h1>
 
-<form th:action="@{~/manager/add-product}" method="post"
-      enctype="multipart/form-data">
+  <table>
+    <tr th:each="product : ${productList}">
+      <td th:text="${product.productName}"></td>
+      <td><img th:src="${product.image}" width="300px" alt="product image"></td>
+    </tr>
+  </table>
 
-  <select name="category">
-    <option>Select Category</option>
-    <option th:each="category : ${categoryList}" th:value="${category.categoryId}"
-            th:text="${category.categoryName}"></option>
-  </select>
 
-  ProductName: <input type="text" name="productName" placeholder="Product Name">
+  <form th:action="@{~/manager/add-product}" method="post"
+        enctype="multipart/form-data">
 
-  ProductDescription :<input type="text" name="productDescription"
-                             placeholder="Product Desc">
+    <select name="category">
+      <option>Select Category</option>
+      <option th:each="category : ${categoryList}" th:value="${category.categoryId}"
+              th:text="${category.categoryName}"></option>
+    </select>
 
-  ProductPrice: <input type="number" name="productPrice"
-                       placeholder="Product Price">
+    ProductName: <input type="text" name="productName" placeholder="Product Name">
 
-  ProductUnit: <input type="number" name="productUnit"
-                      placeholder="Product Unit">
+    ProductDescription :<input type="text" name="productDescription"
+                               placeholder="Product Description">
 
-  ProductImage: <input type="file" name="file">
+    ProductPrice: <input type="number" name="productPrice"
+                         placeholder="Product Price">
 
-  <input type="submit" value="ADD">
-</form>
+    ProductUnit: <input type="number" name="productUnit"
+                        placeholder="Product Unit">
+
+    ProductImage: <input type="file" name="file">
+
+    <input type="submit" value="ADD">
+  </form>
 
 </body>
 </html>

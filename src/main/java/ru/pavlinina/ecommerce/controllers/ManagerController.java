@@ -57,6 +57,7 @@ public class ManagerController {
     public ModelAndView listProduct() {
         ModelAndView mv = new ModelAndView("manager/product-form");
         mv.addObject("categoryList", categoryService.listCategory());
+        mv.addObject("productList", productService.listProduct());
         return mv;
     }
 
