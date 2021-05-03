@@ -7,6 +7,7 @@ import ru.pavlinina.ecommerce.repositories.ProductRepository;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Sofia Pavlinina
@@ -26,5 +27,10 @@ public class ProductServiceImpl implements ProductService{
     @Override
     public List<Product> listProduct() {
         return productRepository.findAll();
+    }
+
+    @Override
+    public Optional<Product> getProductById(long productId) {
+        return productRepository.findById(productId);
     }
 }

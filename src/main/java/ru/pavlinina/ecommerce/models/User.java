@@ -38,7 +38,7 @@ public class User {
 
     private int active;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "userProductList", joinColumns = @JoinColumn(name = "userId"), inverseJoinColumns = @JoinColumn(name = "productId"))
     private List<Product> productList = new ArrayList<>();
 
@@ -73,13 +73,5 @@ public class User {
         }
 
         return new ArrayList<String>();
-    }
-
-    public int getActive() {
-        return active;
-    }
-
-    public void setActive(int active) {
-        this.active = active;
     }
 }

@@ -1,8 +1,19 @@
 package ru.pavlinina.ecommerce.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+import ru.pavlinina.ecommerce.models.Product;
+import ru.pavlinina.ecommerce.models.User;
+import ru.pavlinina.ecommerce.services.ProductService;
+import ru.pavlinina.ecommerce.services.UserService;
+
+import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Sofia Pavlinina
@@ -11,8 +22,48 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("profile")
 public class ProfileController {
 
+    @Autowired
+    private ProductService productService;
+
+    @Autowired
+    private UserService userService;
+
+
     @GetMapping("index")
-    public String index() {
-        return "profile/index";
+    public ModelAndView index() {
+        ModelAndView mv = new ModelAndView("profile/index");
+        mv.addObject("productList", productService.listProduct());
+        return mv;
     }
+
+    @GetMapping("cart-product")
+    public ModelAndView cartProduct(Principal principal) {
+        ModelAndView mv = new ModelAndView("profile/cart-product");
+        User user = userService.findByEmail(principal.getName());
+        mv.addObject("userProduct", user.getProductList());
+        return mv;
+    }
+
+    @GetMapping("addToCart/{productId}")
+    public ModelAndView addToCart(@PathVariable("productId")String productId, Principal principal) {
+        ModelAndView mv = new ModelAndView("profile/cart-product");
+        User user = userService.findByEmail(principal.getName());
+        long productLongId = Long.parseLong(productId);
+        Product product = productService.getProductById(productLongId).get();
+
+        List<Product> productList = new ArrayList<Product>();
+        productList.add(product);
+        user.setProductList(productList);
+
+        List<User> userList = new ArrayList<>();
+        userList.add(user);
+        product.setUserList(userList);
+
+        userService.update(user);
+        productService.addProduct(product);
+        mv.addObject("userProduct", user.getProductList());
+
+        return mv;
+    }
+
 }
