@@ -38,9 +38,9 @@ public class User {
 
     private int active;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "userProductList", joinColumns = @JoinColumn(name = "userId"), inverseJoinColumns = @JoinColumn(name = "productId"))
-    private List<Product> productList = new ArrayList<>();
+    @ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_product_list", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
+    private List<Product> productList;
 
     public User() {}
 
@@ -54,7 +54,6 @@ public class User {
         this.role = role;
     }
 
-
     @Override
     public String toString() {
         return "User{" +
@@ -64,6 +63,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", role='" + role + '\'' +
+                ", productList=" + productList +
                 '}';
     }
 
@@ -71,7 +71,6 @@ public class User {
         if (this.role.length() > 0) {
             return Arrays.asList(this.role.split(","));
         }
-
         return new ArrayList<String>();
     }
 }

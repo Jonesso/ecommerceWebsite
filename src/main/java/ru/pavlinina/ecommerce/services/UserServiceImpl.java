@@ -3,10 +3,12 @@ package ru.pavlinina.ecommerce.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ru.pavlinina.ecommerce.models.Product;
 import ru.pavlinina.ecommerce.models.User;
 import ru.pavlinina.ecommerce.repositories.UserRepository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 /**
  * @author Sofia Pavlinina
@@ -36,6 +38,16 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void update(User user) {
+        List<Product> productlist1 = user.getProductList();
+        List<Product> productlist = (userRepository.findByEmail(user.getEmail())).getProductList();
+        productlist1.addAll(productlist);
+        user.setProductList(productlist1);
+
         userRepository.save(user);
+    }
+
+    @Override
+    public List<User> findAllUser() {
+        return userRepository.findAll();
     }
 }

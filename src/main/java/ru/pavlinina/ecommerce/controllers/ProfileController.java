@@ -40,7 +40,7 @@ public class ProfileController {
     public ModelAndView cartProduct(Principal principal) {
         ModelAndView mv = new ModelAndView("profile/cart-product");
         User user = userService.findByEmail(principal.getName());
-        mv.addObject("userProduct", user.getProductList());
+        mv.addObject("user", user);
         return mv;
     }
 
@@ -61,7 +61,8 @@ public class ProfileController {
 
         userService.update(user);
         productService.addProduct(product);
-        mv.addObject("userProduct", user.getProductList());
+
+        mv.addObject("user", user);
 
         return mv;
     }
