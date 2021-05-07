@@ -16,4 +16,6 @@ public interface ProductService {
     public List<Product> listProduct();
 
     public Optional<Product> getProductById(long productId);
+
+    public List<Product> findByCategory(long categoryId);
 }

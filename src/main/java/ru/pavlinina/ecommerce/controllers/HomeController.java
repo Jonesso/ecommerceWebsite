@@ -2,11 +2,15 @@ package ru.pavlinina.ecommerce.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import ru.pavlinina.ecommerce.models.User;
+import ru.pavlinina.ecommerce.services.CategoryService;
+import ru.pavlinina.ecommerce.services.ProductService;
 import ru.pavlinina.ecommerce.services.UserService;
 
 /**
@@ -19,8 +23,17 @@ public class HomeController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("index")
-    public String index() {
+    @Autowired
+    private CategoryService categoryService;
+
+    @Autowired
+    private ProductService productService;
+
+
+    @GetMapping({"index", "/"})
+    public String index(Model model) {
+        model.addAttribute("categoryList", categoryService.listCategory());
+        model.addAttribute("productList", productService.listProduct());
         return "index";
     }
 
@@ -38,6 +51,23 @@ public class HomeController {
     public ModelAndView signUp(User user) {
         ModelAndView mv = new ModelAndView("/index");
         userService.save(user);
+        return mv;
+    }
+
+    @GetMapping("allProduct")
+    public String allProduct(Model model) {
+        model.addAttribute("productList", productService.listProduct());
+        model.addAttribute("categoryList", categoryService.listCategory());
+        return "index";
+    }
+
+    @GetMapping("getProducts/{categoryId}")
+    public ModelAndView getProductFromCategory(@PathVariable("categoryId")String categoryId) {
+        ModelAndView mv = new ModelAndView("index");
+        long categoryLongId = Long.parseLong(categoryId);
+        System.out.println(categoryLongId);
+        mv.addObject("productList", productService.findByCategory(categoryLongId));
+        mv.addObject("categoryList", categoryService.listCategory());
         return mv;
     }
 
