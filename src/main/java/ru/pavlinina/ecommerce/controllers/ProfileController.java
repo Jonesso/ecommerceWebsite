@@ -41,7 +41,18 @@ public class ProfileController {
         ModelAndView mv = new ModelAndView("profile/cart-product");
         User user = userService.findByEmail(principal.getName());
         mv.addObject("user", user);
+        int total = findSum(user);
+        mv.addObject("total", total);
         return mv;
+    }
+
+    private int findSum(User user) {
+        List<Product> productList = user.getProductList();
+        int sum =0;
+        for (Product p : productList) {
+            sum += p.getProductPrice();
+        }
+        return sum;
     }
 
     @GetMapping("addToCart/{productId}")
@@ -61,6 +72,9 @@ public class ProfileController {
 
         userService.update(user);
         productService.addProduct(product);
+
+        int total = findSum(user);
+        mv.addObject("total", total);
 
         mv.addObject("user", user);
 
