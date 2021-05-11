@@ -88,4 +88,21 @@ public class ManagerController {
         return mv;
     }
 
+    @GetMapping("delete-Product/{productId}")
+    public ModelAndView deleteProduct(@PathVariable("productId")String productId) {
+        ModelAndView mv = new ModelAndView("manager/product-form");
+        productService.deleteProduct(Long.parseLong(productId));
+        mv.addObject("productList", productService.listProduct());
+        return mv;
+    }
+
+    @GetMapping("updateProduct/{productId}")
+    public ModelAndView updateProduct(@PathVariable("productId")String productId) {
+        ModelAndView mv = new ModelAndView("manager/updateProduct");
+        mv.addObject("categoryList", categoryService.listCategory());
+        mv.addObject("Product", productService.getProductById(Long.parseLong(productId)).get());
+        return mv;
+    }
+
+
 }

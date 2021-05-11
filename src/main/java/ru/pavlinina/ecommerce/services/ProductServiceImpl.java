@@ -38,4 +38,9 @@ public class ProductServiceImpl implements ProductService{
     public List<Product> findByCategory(long categoryId) {
         return productRepository.findByCategory_CategoryId(categoryId);
     }
+
+    @Override
+    public void deleteProduct(long productId) {
+        productRepository.deleteById(productId);
+    }
 }

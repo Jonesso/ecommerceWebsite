@@ -1,46 +1,102 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head>
-    <meta charset="UTF-8">
-    <title>Product form</title>
+<head th:insert="fragments.html :: headerfiles">
 </head>
 <body>
+  <header th:insert="fragments.html :: nav"></header>
 
-  <h1>Product Page</h1>
+  <div class="container">
+    <div class="row my-5">
+      <div class="list-group list-group-flush col-5">
+        <a class="list-group-item list-group-item-action"
+           href="#" th:href="@{/manager/category-form}">Manage Category</a>
+        <a class="list-group-item list-group-item-action"
+           href="#" th:href="@{/manager/product-form}">Manage Product</a>
+      </div>
+    </div>
 
-  <table>
-    <tr th:each="product : ${productList}">
-      <td th:text="${product.productName}"></td>
-      <td><img th:src="${product.image}" width="300px" alt="product image"></td>
-    </tr>
-  </table>
+    <table class="table my-5">
+      <thead>
+      <tr>
+        <th scope="col">Id</th>
+        <th scope="col">Image</th>
+        <th scope="col">Product Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Price</th>
+        <th scope="col">No. of Unit</th>
+        <th scope="col">Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="product : ${productList}">
+        <th scope="row" th:text="${product.productId}"></th>
+        <td><img th:src="${product.image}" width="300px"></td>
+        <td th:text="${product.productName}"></td>
+        <td th:text="${product.productDescription}"></td>
+        <td th:text="${product.productPrice}"></td>
+        <td th:text="${product.productUnit}"></td>
+        <td>
+          <a href="#"
+             th:href="@{'/manager/updateProduct/'+ ${product.productId}}"
+             class="btn btn-danger">Update</a>
+          <a href="#"
+             th:href="@{'/manager/delete-Product/'+ ${product.productId}}"
+             class="btn btn-danger">Delete</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
 
+    <div
+            style="width: 600px; margin-left: auto; margin-right: auto; margin-top: 24px; padding: 24px;">
+      <div class="card">
+        <div class="card-block" style="padding: 24px;">
+          <form th:action="@{/manager/add-product}" method="post" enctype="multipart/form-data">
+            <fieldset>
 
-  <form th:action="@{~/manager/add-product}" method="post"
-        enctype="multipart/form-data">
+              <div class="form-group">
+                <select class="custom-select" name="category">
+                  <option selected>Select category</option>
+                  <option th:each="category : ${categoryList}"
+                          th:value="${category.categoryId}"
+                          th:text="${category.categoryName}"></option>
+                </select>
+              </div>
 
-    <select name="category">
-      <option>Select Category</option>
-      <option th:each="category : ${categoryList}" th:value="${category.categoryId}"
-              th:text="${category.categoryName}"></option>
-    </select>
+              <div class="form-group">
+                <label for="productName">Product ame</label>
+                <input type="text" class="form-control" id="productName" name="productName" placeholder="Product Name">
+              </div>
 
-    ProductName: <input type="text" name="productName" placeholder="Product Name">
+              <div class="form-group">
+                <label for="productDescription">Product Description</label>
+                <input type="text" class="form-control" id="productDescription" name="productDescription" placeholder="Product Description">
+              </div>
 
-    ProductDescription :<input type="text" name="productDescription"
-                               placeholder="Product Description">
+              <div class="form-group">
+                <label for="productPrice">Product Price</label>
+                <input type="number" class="form-control" id="productPrice" name="productPrice" placeholder="Product Price">
+              </div>
 
-    ProductPrice: <input type="number" name="productPrice"
-                         placeholder="Product Price">
+              <div class="form-group">
+                <label for="productUnit">Product Unit</label>
+                <input type="number" class="form-control" id="productUnit" name="productUnit" placeholder="Product Unit">
+              </div>
 
-    ProductUnit: <input type="number" name="productUnit"
-                        placeholder="Product Unit">
+              <div class="form-group">
+                <label for="file">Product Image</label>
+                <input type="file" class="form-control" id="file" name="file">
+              </div>
 
-    ProductImage: <input type="file" name="file">
-
-    <input type="submit" value="ADD">
-  </form>
-
+              <div class="form-actions" style="margin-top: 12px;">
+                <button type="submit" class="btn btn-success">ADD</button>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
