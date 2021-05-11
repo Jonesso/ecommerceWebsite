@@ -7,13 +7,14 @@ import ru.pavlinina.ecommerce.repositories.CategoryRepository;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Sofia Pavlinina
  */
 @Service
 @Transactional
-public class CategoryServiceImpl implements CategoryService{
+public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
     private CategoryRepository categoryRepository;
@@ -27,5 +28,20 @@ public class CategoryServiceImpl implements CategoryService{
     @Override
     public List<Category> listCategory() {
         return categoryRepository.findAll();
+    }
+
+    @Override
+    public void deleteCategory(long categoryId) {
+        categoryRepository.deleteById(categoryId);
+    }
+
+    @Override
+    public void updateCategory(Category category) {
+        categoryRepository.save(category);
+    }
+
+    @Override
+    public Optional<Category> getCategory(long categoryId) {
+        return categoryRepository.findById(categoryId);
     }
 }

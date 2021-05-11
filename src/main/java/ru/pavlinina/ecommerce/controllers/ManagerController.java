@@ -3,10 +3,7 @@ package ru.pavlinina.ecommerce.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import ru.pavlinina.ecommerce.models.Category;
@@ -51,6 +48,22 @@ public class ManagerController {
         mv.addObject("categoryList", categoryService.listCategory());
         return mv;
     }
+
+    @GetMapping("delete-Category/{categoryId}")
+    public ModelAndView deleteCategory(@PathVariable("categoryId")String categoryId) {
+        ModelAndView mv = new ModelAndView("manager/category-form");
+        categoryService.deleteCategory(Long.parseLong(categoryId));
+        mv.addObject("categoryList", categoryService.listCategory());
+        return mv;
+    }
+
+    @GetMapping("updateCategory/{categoryId}")
+    public ModelAndView updateCategory(@PathVariable("categoryId")String categoryId) {
+        ModelAndView mv = new ModelAndView("manager/updateCategory");
+        mv.addObject("Category", categoryService.getCategory(Long.parseLong(categoryId)).get());
+        return mv;
+    }
+
 
     //	Product--------------------------------------------------
     @GetMapping("product-form")
