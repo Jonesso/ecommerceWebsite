@@ -4,9 +4,10 @@
 <head th:insert="fragments.html :: headerfiles">
 </head>
 <body>
-    <h1  class="display-4 my-3">Your cart</h1>
+    <header th:insert="fragments.html :: nav"></header>
 
     <div class="container">
+        <h1  class="display-4 my-3">Your cart</h1>
         <div class="row">
             <ul class="list-group col-7">
                 <li class="list-group-item d-flex justify-content-around">
@@ -24,7 +25,7 @@
             </ul>
             <ul class="list-group col-7">
                 <li class="list-group-item d-flex justify-content-end">
-                    <span class="h6" th:text="'Total : '+${total}"></span>
+                    <span class="h6" th:text="'Total : $ '+${total}"></span>
                 </li>
                 <li class="list-group-item d-flex justify-content-end">
                     <button type="button" class="btn btn-primary btn-lg">Check out</button>
@@ -32,6 +33,5 @@
             </ul>
         </div>
     </div>
-
 </body>
 </html>
