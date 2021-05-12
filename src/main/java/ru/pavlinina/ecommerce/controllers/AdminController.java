@@ -39,4 +39,9 @@ public class AdminController {
         return mv;
     }
 
+    @GetMapping("add-user")
+    public String addUser() {
+        return "admin/add-user";
+    }
+
 }
