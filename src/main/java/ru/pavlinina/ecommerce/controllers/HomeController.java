@@ -73,4 +73,10 @@ public class HomeController {
         return mv;
     }
 
+    @GetMapping("error")
+    public String error() {
+        return "error";
+    }
+
+
 }
