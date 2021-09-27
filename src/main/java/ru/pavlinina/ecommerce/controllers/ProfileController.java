@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * profile controller
  * @author Sofia Pavlinina
  */
 @Controller
@@ -29,6 +30,11 @@ public class ProfileController {
     private UserService userService;
 
 
+    /**
+     * method for getting page with user's shopping cart
+     * @param principal interface represents the abstract notion of a principal
+     * @return page with user's shopping cart
+     */
     @GetMapping("cart-product")
     public ModelAndView cartProduct(Principal principal) {
         ModelAndView mv = new ModelAndView("profile/cart-product");
@@ -39,6 +45,11 @@ public class ProfileController {
         return mv;
     }
 
+    /**
+     * method for getting total shopping cart price
+     * @param user entity, which product list is needed
+     * @return summary of product prices in shopping cart
+     */
     private int findSum(User user) {
         List<Product> productList = user.getProductList();
         int sum =0;
@@ -48,6 +59,12 @@ public class ProfileController {
         return sum;
     }
 
+    /**
+     * method for adding product to shopping cart
+     * @param productId ID of necessary product
+     * @param principal interface represents the abstract notion of a principal
+     * @return page with user's shopping cart with added product
+     */
     @GetMapping("addToCart/{productId}")
     public ModelAndView addToCart(@PathVariable("productId")String productId, Principal principal) {
         ModelAndView mv = new ModelAndView("profile/cart-product");

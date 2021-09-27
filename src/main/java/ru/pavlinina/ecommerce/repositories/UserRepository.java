@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import ru.pavlinina.ecommerce.models.User;
 
 /**
+ * repository for interaction with User table
  * @author Sofia Pavlinina
  */
 @Repository

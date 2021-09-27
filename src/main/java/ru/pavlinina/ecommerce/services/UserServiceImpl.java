@@ -11,6 +11,7 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 /**
+ * implementation of {@link ru.pavlinina.ecommerce.services.ProductService}
  * @author Sofia Pavlinina
  */
 @Service

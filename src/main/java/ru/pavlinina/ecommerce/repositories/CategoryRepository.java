@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 import ru.pavlinina.ecommerce.models.Category;
 
 /**
+ * repository for interaction with Category table
  * @author Sofia Pavlinina
  */
 @Repository

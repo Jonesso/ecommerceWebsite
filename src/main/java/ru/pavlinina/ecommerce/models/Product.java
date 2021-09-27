@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * model of Product table entity
  * @author Sofia Pavlinina
  */
 @Entity

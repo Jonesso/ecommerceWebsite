@@ -7,6 +7,7 @@ import ru.pavlinina.ecommerce.models.Product;
 import java.util.List;
 
 /**
+ * repository for interaction with Product table
  * @author Sofia Pavlinina
  */
 @Repository

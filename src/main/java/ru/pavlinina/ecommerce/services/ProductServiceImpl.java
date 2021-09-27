@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
+ * implementation of {@link ru.pavlinina.ecommerce.services.ProductService}
  * @author Sofia Pavlinina
  */
 @Service

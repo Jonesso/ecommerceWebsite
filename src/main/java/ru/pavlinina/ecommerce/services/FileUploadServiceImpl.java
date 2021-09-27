@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
+ * implementation of {@link ru.pavlinina.ecommerce.services.FileUploadService}
  * @author Sofia Pavlinina
  */
 @Service
@@ -37,6 +38,11 @@ public class FileUploadServiceImpl implements FileUploadService {
 
     }
 
+    /**
+     * method for generating unique file name
+     * @param file - current name of file
+     * @return new file name
+     */
     private String generateFileName(String file) {
         String ext = file.substring(file.lastIndexOf("."));
         return System.currentTimeMillis() + ext;
