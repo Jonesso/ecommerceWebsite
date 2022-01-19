@@ -1,3 +1,3 @@
 # ecommerceWebsite
 
-E-Commerce website with Spring Boot MVC for MIREA course work
+E-Commerce website developed with Spring Boot MVC
